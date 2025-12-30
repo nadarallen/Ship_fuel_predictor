@@ -1,4 +1,4 @@
-document.getElementById('prediction-form').addEventListener('submit', async function(e) {
+document.getElementById('prediction-form').addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const form = e.target;
@@ -16,12 +16,19 @@ document.getElementById('prediction-form').addEventListener('submit', async func
     const data = {};
     formData.forEach((value, key) => {
         // Convert numbers
-        if (key !== 'ship_type') {
-            data[key] = parseFloat(value);
-        } else {
+        if (key === 'ship_type') {
             data[key] = value;
+        } else if (key === 'monsoon_season') {
+            // Form data only sends 'on' if checked, so we handle manual check below or ensure this captures it
+            // Actually, checkbox value is usually handled via specific checks, but let's see.
+            // Best to just check the element directly for checkboxes in many cases or standard FormData behavior
+        } else {
+            data[key] = parseFloat(value);
         }
     });
+
+    // Explicitly handle checkbox
+    data['monsoon_season'] = document.getElementById('monsoon_season').checked ? 1 : 0;
 
     try {
         const response = await fetch('/predict_fuel', {
@@ -41,8 +48,8 @@ document.getElementById('prediction-form').addEventListener('submit', async func
             setTimeout(() => {
                 resultContainer.classList.add('visible');
             }, 10);
-            
-            animateValue(fuelResult, 0, result.predicted_fuel_liters, 1000);
+
+            animateValue(fuelResult, 0, result.predicted_fuel_tons, 1000);
         } else {
             alert('Error: ' + (result.error || 'Unknown error occurred'));
         }
@@ -66,7 +73,7 @@ function animateValue(obj, start, end, duration) {
             window.requestAnimationFrame(step);
         } else {
             // Ensure exact final value with decimal if needed, though int is usually fine for liters
-             obj.innerHTML = end.toLocaleString();
+            obj.innerHTML = end.toLocaleString();
         }
     };
     window.requestAnimationFrame(step);

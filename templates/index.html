@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +11,10 @@
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <div class="background-animation"></div>
-    
+
     <div class="container">
         <header>
             <h1><i class="fa-solid fa-ship"></i> Ship Fuel Predictor</h1>
@@ -23,63 +25,93 @@
             <form id="prediction-form">
                 <div class="grid-container">
                     <div class="input-group">
-                        <label for="distance_km">Distance (km)</label>
+                        <label for="distance_nm">Distance (NM)</label>
                         <div class="input-wrapper">
                             <i class="fa-solid fa-route"></i>
-                            <input type="number" id="distance_km" name="distance_km" placeholder="e.g. 500" required>
+                            <input type="number" id="distance_nm" name="distance_nm" placeholder="e.g. 500" required>
                         </div>
                     </div>
 
                     <div class="input-group">
-                        <label for="speed_knots">Speed (knots)</label>
+                        <label for="avg_speed_knots">Speed (knots)</label>
                         <div class="input-wrapper">
                             <i class="fa-solid fa-gauge-high"></i>
-                            <input type="number" id="speed_knots" name="speed_knots" step="0.1" placeholder="e.g. 16" required>
+                            <input type="number" id="avg_speed_knots" name="avg_speed_knots" step="0.1"
+                                placeholder="e.g. 14.5" required>
                         </div>
                     </div>
 
                     <div class="input-group">
-                        <label for="wind_speed">Wind Speed (km/h)</label>
+                        <label for="engine_power_kw">Engine Power (kW)</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-bolt"></i>
+                            <input type="number" id="engine_power_kw" name="engine_power_kw" placeholder="e.g. 15000"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="sfoc">SFOC (g/kWh)</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-gas-pump"></i>
+                            <input type="number" id="sfoc" name="sfoc" step="0.1" placeholder="e.g. 175" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="wind_speed_mps">Wind Speed (m/s)</label>
                         <div class="input-wrapper">
                             <i class="fa-solid fa-wind"></i>
-                            <input type="number" id="wind_speed" name="wind_speed" step="0.1" placeholder="e.g. 15" required>
+                            <input type="number" id="wind_speed_mps" name="wind_speed_mps" step="0.1"
+                                placeholder="e.g. 5.5" required>
                         </div>
                     </div>
 
                     <div class="input-group">
-                        <label for="ocean_current">Ocean Current (knots)</label>
+                        <label for="current_speed_mps">Current Speed (m/s)</label>
                         <div class="input-wrapper">
                             <i class="fa-solid fa-water"></i>
-                            <input type="number" id="ocean_current" name="ocean_current" step="0.1" placeholder="e.g. 1.2" required>
+                            <input type="number" id="current_speed_mps" name="current_speed_mps" step="0.1"
+                                placeholder="e.g. 0.5" required>
                         </div>
                     </div>
 
                     <div class="input-group">
-                        <label for="wave_height">Wave Height (m)</label>
+                        <label for="wave_height_m">Wave Height (m)</label>
                         <div class="input-wrapper">
                             <i class="fa-solid fa-water-ladder"></i>
-                            <input type="number" id="wave_height" name="wave_height" step="0.1" placeholder="e.g. 1.5" required>
+                            <input type="number" id="wave_height_m" name="wave_height_m" step="0.1"
+                                placeholder="e.g. 2.5" required>
                         </div>
                     </div>
 
                     <div class="input-group">
-                        <label for="load_percent">Load Percent (%)</label>
+                        <label for="cargo_load_pct">Load Carried (%)</label>
                         <div class="input-wrapper">
                             <i class="fa-solid fa-weight-hanging"></i>
-                            <input type="number" id="load_percent" name="load_percent" placeholder="e.g. 75" min="0" max="100" required>
+                            <input type="number" id="cargo_load_pct" name="cargo_load_pct" placeholder="e.g. 80" min="0"
+                                max="100" required>
                         </div>
                     </div>
 
-                    <div class="input-group full-width">
+                    <div class="input-group">
                         <label for="ship_type">Ship Type</label>
                         <div class="input-wrapper">
                             <i class="fa-solid fa-anchor"></i>
                             <select id="ship_type" name="ship_type" required>
                                 <option value="" disabled selected>Select Ship Type</option>
-                                <option value="Cargo">Cargo</option>
+                                <option value="Bulk Carrier">Bulk Carrier</option>
                                 <option value="Container">Container</option>
                                 <option value="Tanker">Tanker</option>
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group checkbox-group">
+                        <label for="monsoon_season">Monsoon Season</label>
+                        <div class="input-wrapper">
+                            <input type="checkbox" id="monsoon_season" name="monsoon_season">
+                            <span class="custom-checkbox"></span>
                         </div>
                     </div>
                 </div>
@@ -95,7 +127,7 @@
                     <h3>Estimated Fuel Consumption</h3>
                     <div class="result-value">
                         <span id="fuel-result">0</span>
-                        <span class="unit">Liters</span>
+                        <span class="unit">Tons</span>
                     </div>
                     <div class="result-details">
                         <p>Based on current conditions and vessel parameters.</p>
@@ -107,4 +139,5 @@
 
     <script src="/static/script.js"></script>
 </body>
+
 </html>
