@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ship Fuel Predictor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-ship"></i> Ship Fuel Predictor</h1>
+            <p>Advanced AI Model for Maritime Fuel Consumption Estimation</p>
+        </header>
+
+        <main class="glass-card">
+            <form id="prediction-form">
+                <div class="grid-container">
+                    <div class="input-group">
+                        <label for="distance_km">Distance (km)</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-route"></i>
+                            <input type="number" id="distance_km" name="distance_km" placeholder="e.g. 500" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="speed_knots">Speed (knots)</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-gauge-high"></i>
+                            <input type="number" id="speed_knots" name="speed_knots" step="0.1" placeholder="e.g. 16" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="wind_speed">Wind Speed (km/h)</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-wind"></i>
+                            <input type="number" id="wind_speed" name="wind_speed" step="0.1" placeholder="e.g. 15" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="ocean_current">Ocean Current (knots)</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-water"></i>
+                            <input type="number" id="ocean_current" name="ocean_current" step="0.1" placeholder="e.g. 1.2" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="wave_height">Wave Height (m)</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-water-ladder"></i>
+                            <input type="number" id="wave_height" name="wave_height" step="0.1" placeholder="e.g. 1.5" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="load_percent">Load Percent (%)</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-weight-hanging"></i>
+                            <input type="number" id="load_percent" name="load_percent" placeholder="e.g. 75" min="0" max="100" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group full-width">
+                        <label for="ship_type">Ship Type</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-anchor"></i>
+                            <select id="ship_type" name="ship_type" required>
+                                <option value="" disabled selected>Select Ship Type</option>
+                                <option value="Cargo">Cargo</option>
+                                <option value="Container">Container</option>
+                                <option value="Tanker">Tanker</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" id="predict-btn">
+                    <span>Calculate Consumption</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div id="result-container" class="hidden">
+                <div class="result-box">
+                    <h3>Estimated Fuel Consumption</h3>
+                    <div class="result-value">
+                        <span id="fuel-result">0</span>
+                        <span class="unit">Liters</span>
+                    </div>
+                    <div class="result-details">
+                        <p>Based on current conditions and vessel parameters.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

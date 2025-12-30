@@ -1,11 +1,19 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
 import pandas as pd
 import joblib
+import os
 
 # Load the trained model
-model = joblib.load("fuel_model.pkl")
+model_path = os.path.join(os.path.dirname(__file__), "fuel_model.pkl")
+model = joblib.load(model_path)
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
+
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 @app.route('/predict_fuel', methods=['POST'])
 def predict_fuel():
